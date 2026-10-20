@@ -328,7 +328,10 @@ def main() -> None:
         description='Paired MMLU utility measurement (needs a CUDA GPU and the model).'
     )
     parser.add_argument(
-        '--checkpoint', required=True, help='transform checkpoint written by scripts/train.py'
+        '--checkpoint',
+        required=True,
+        help='transform checkpoint: a .pt file from scripts/train.py, or a folder with model.safetensors '
+        'and config.json',
     )
     parser.add_argument(
         '--alpha',
@@ -383,7 +386,7 @@ def main() -> None:
     embedding = model.get_input_embeddings()
     table = embedding.weight.detach()
     label_ids, label_len = label_token_ids(tok)
-    state = torch.load(args.checkpoint, map_location='cpu', weights_only=False)
+    state = common.load_checkpoint(args.checkpoint)
     config = TransformConfig(**state['config'])
     trained = PrivacyTransform(config).cuda().eval().requires_grad_(False)
     trained.load_state_dict(state['state_dict'])
@@ -404,7 +407,7 @@ def main() -> None:
         'prefill': PREFILL,
         'format_rule': 'format_validation ordering minus the format_validation subset, up to 5 per subject',
         'format_excluded_sha': file_sha(excluded_path),
-        'checkpoint_sha': file_sha(args.checkpoint),
+        'checkpoint_sha': file_sha(state['weights_file']),
         'transform_config': state['config'],
         'alpha': args.alpha,
         'seed': SEED,

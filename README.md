@@ -72,6 +72,15 @@ hf download Qwen/Qwen3.8-27B --revision 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
 # or set QWEN_MODEL_DIR to an existing copy at that revision
 ```
 
+The trained transform behind the reported results is on Hugging Face at
+[spinal-ai/spinal-privacy](https://huggingface.co/spinal-ai/spinal-privacy):
+
+```bash
+hf download spinal-ai/spinal-privacy --local-dir checkpoints/spinal-privacy
+```
+
+Pass `--checkpoint checkpoints/spinal-privacy` to `evaluate.py` or `attack.py` to use it.
+
 ## Usage
 
 ```bash

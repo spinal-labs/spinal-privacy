@@ -95,7 +95,7 @@ def main(args: argparse.Namespace) -> None:
     REPORT['sets'] = {'attacker_prompts': len(attacker_prompts), 'victim_prompts': len(victim_prompts)}
     common.event('sets', **REPORT['sets'])
 
-    state = torch.load(args.checkpoint, map_location='cpu', weights_only=False)
+    state = common.load_checkpoint(args.checkpoint)
     transform = PrivacyTransform(TransformConfig(**state['config'])).cuda().eval().requires_grad_(False)
     transform.load_state_dict(state['state_dict'])
 
@@ -167,7 +167,11 @@ def parse_args() -> argparse.Namespace:
         description='Chosen-input subspace attack on a transform checkpoint (needs a CUDA GPU and the model).'
     )
     parser.add_argument(
-        '--checkpoint', type=Path, required=True, help='transform checkpoint written by scripts/train.py'
+        '--checkpoint',
+        type=Path,
+        required=True,
+        help='transform checkpoint: a .pt file from scripts/train.py, or a folder with model.safetensors '
+        'and config.json',
     )
     parser.add_argument(
         '--model-dir',

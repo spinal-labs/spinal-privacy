@@ -28,6 +28,7 @@ sys.path.insert(0, str(REPO))
 os.environ.update(HF_HUB_OFFLINE='1', TRANSFORMERS_OFFLINE='1')
 
 import torch  # noqa: E402
+from safetensors.torch import load_file as load_safetensors  # noqa: E402
 from torch.nn import functional as F  # noqa: E402
 from transformers import (  # noqa: E402
     AutoModelForCausalLM,
@@ -100,6 +101,21 @@ def load(model_dir: Path) -> tuple[PreTrainedTokenizerBase, PreTrainedModel]:
     )
     model.config.use_cache = False
     return tok, model
+
+
+def load_checkpoint(path: Path) -> dict[str, Any]:
+    """Load a transform checkpoint: a .pt file from scripts/train.py, or a folder (or .safetensors file)
+    holding model.safetensors and config.json, as published on Hugging Face.
+
+    Returns {'config': dict, 'state_dict': dict of tensors, 'weights_file': the file the weights came from}.
+    """
+    path = Path(path)
+    if path.is_dir() or path.suffix == '.safetensors':
+        weights = path / 'model.safetensors' if path.is_dir() else path
+        config = json.loads((weights.parent / 'config.json').read_text())
+        return {'config': config, 'state_dict': load_safetensors(weights), 'weights_file': weights}
+    state = torch.load(path, map_location='cpu', weights_only=True)
+    return {'config': state['config'], 'state_dict': state['state_dict'], 'weights_file': path}
 
 
 def corpus(tok: PreTrainedTokenizerBase) -> list[dict[str, Any]]:

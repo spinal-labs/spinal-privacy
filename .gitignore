@@ -6,6 +6,7 @@
 *.ckpt
 *.gguf
 models/
+checkpoints/
 
 # Run outputs
 runs/
