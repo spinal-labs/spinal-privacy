@@ -1,0 +1,37 @@
+# Model weights and checkpoints (published on Hugging Face, never in git)
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+*.gguf
+models/
+
+# Run outputs
+runs/
+
+# Large or upstream data files
+*.parquet
+*.arrow
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets and local settings
+.env
+.env.*
+*.pem
+*.key
+
+# OS and editors
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,45 @@
+{
+  "description": "Main result: frozen Qwen3.8-27B with and without the transform on 1,490 held-out MMLU questions, strength a = 1, noise off.",
+  "model": {
+    "id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "dtype": "bfloat16"
+  },
+  "checkpoint": {
+    "file": "fixed_fp64.pt",
+    "sha256": "fa679cf28efd672c8db42330c479a4001b36c56e1003a13a26c9fb77eb7943ec"
+  },
+  "split": "data/mmlu_dev.jsonl",
+  "alpha": 1.0,
+  "n_questions": 1490,
+  "without_transform": {
+    "correct": 1226,
+    "accuracy": 0.8228187919463087
+  },
+  "with_transform": {
+    "correct": 1203,
+    "accuracy": 0.8073825503355705
+  },
+  "breaks_right_to_wrong": 68,
+  "break_rate_of_clean_correct": 0.05546492659053834,
+  "break_rate_one_sided_95_bounds": [
+    0.04510732769675252,
+    0.06744431427809985
+  ],
+  "repairs_wrong_to_right": 45,
+  "transitions": {
+    "right_right": 1158,
+    "right_wrong": 68,
+    "wrong_right": 45,
+    "wrong_wrong": 219
+  },
+  "ties": {
+    "without_transform": 20,
+    "with_transform": 14
+  },
+  "tokens_hidden_pct": {
+    "macro": 30.082773658971764,
+    "pooled": 24.849070042016606
+  },
+  "note": "Repairs are counted separately and never offset breaks. The break-rate bounds are one-sided 95% Clopper-Pearson bounds (together a 90% interval). Tokens hidden is a nearest-neighbour diagnostic, not a privacy measure."
+}

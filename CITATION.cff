@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "Privacy-preserving inference on hosted models: a learned input-embedding transform for frozen Qwen3.8-27B"
+message: "If you use this code, please cite the paper."
+type: software
+authors:
+  - family-names: "Roopa"
+    given-names: "Mahendra"
+    affiliation: "Spinal"
+  - family-names: "Roopa"
+    given-names: "Srikanth"
+    affiliation: "Spinal"
+repository-code: "https://github.com/spinal-labs/spinal-privacy"
+license: Apache-2.0
+date-released: 2026-10-20
+preferred-citation:
+  type: article
+  title: "Privacy-preserving inference on hosted models: a learned input-embedding transform for frozen Qwen3.8-27B"
+  authors:
+    - family-names: "Roopa"
+      given-names: "Mahendra"
+      affiliation: "Spinal"
+    - family-names: "Roopa"
+      given-names: "Srikanth"
+      affiliation: "Spinal"
+  year: 2026
