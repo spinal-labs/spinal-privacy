@@ -1,0 +1,70 @@
+{
+  "description": "Frozen data files used by the scripts, with their SHA-256 hashes. scripts/evaluate.py refuses to run if mmlu_dev.jsonl does not match splits.mmlu_dev.sha256 and checks both format-validation files against their deterministic selection.",
+  "splits": {
+    "mmlu_dev": {
+      "file": "mmlu_dev.jsonl",
+      "n": 1490,
+      "sha256": "645a8792d55c0a900381d5971754cb258d66bd86047baec727c118015c26aaca",
+      "source": "cais/mmlu, config all, split validation (1,531 items)",
+      "rule": "Remove every validation item whose group also contains an item of the upstream test split, and collapse duplicates within validation; 41 items removed. Items are grouped on two keys at once: the normalised question with its options sorted, and the normalised question stem alone.",
+      "fields": {
+        "i": "row index in the upstream validation file (0-1530)",
+        "question": "upstream question text",
+        "choices": "upstream options A-D",
+        "answer": "upstream answer index (0-3)",
+        "subject": "upstream subject",
+        "key": "hash of the normalised question with its options in upstream order",
+        "gkey": "hash of the normalised question with its options sorted (group key for de-duplication)",
+        "stem": "hash of the normalised question alone"
+      }
+    }
+  },
+  "format_validation": {
+    "file": "mmlu_format_validation.jsonl",
+    "source": "mmlu_dev",
+    "n": 285,
+    "sha256": "cc6649fedad1f6c388f773f5c3ce56e1242408ce04fa65c90529bfc673721a2a",
+    "rule": "5 per subject, ascending SHA256(JSON([20260911, item_id])). Used only to select the prompt format; excluded from the subset below."
+  },
+  "format_validation_r5": {
+    "file": "mmlu_format_validation_r5.jsonl",
+    "source": "mmlu_dev",
+    "n": 276,
+    "sha256": "db4f107a40d5c1e65957ea11e35006b541a1e8df2f5c772ecbb878132d6b4b5b",
+    "rule": "Same ordering as format_validation, excluding its items, up to 5 per subject; subjects with fewer remaining items contribute what remains.",
+    "excluded_subset_sha256": "cc6649fedad1f6c388f773f5c3ce56e1242408ce04fa65c90529bfc673721a2a",
+    "subjects_short": {
+      "college_chemistry": 3,
+      "high_school_computer_science": 3
+    },
+    "subjects_absent": [
+      "college_physics"
+    ],
+    "generation_tokens": 32,
+    "eos_required": true,
+    "parser": "complete uppercase A/B/C/D, optional period, whitespace",
+    "minimum_agreements_per_arm": 263
+  },
+  "training": {
+    "alpaca": {
+      "file": "alpaca.jsonl",
+      "n": 1019,
+      "sha256": "677dd6033e1b53b80b93515617fd8be9b32124030f0c8f86621727099189b084",
+      "source": "tatsu-lab/alpaca (Stanford Alpaca); text = instruction, plus a blank line and the input when present; response = output"
+    }
+  },
+  "normalisation": {
+    "steps": [
+      "unicode NFKC",
+      "casefold",
+      "curly quotes -> ASCII apostrophe",
+      "collapse whitespace",
+      "strip"
+    ],
+    "hash": "sha256, first 32 hex chars"
+  },
+  "upstream": {
+    "cais/mmlu all/validation-00000-of-00001.parquet": "66cdf0b090ccb657d18d13cd81e31fdc55c3467da9642ffb178653268a97c8ef",
+    "cais/mmlu all/test-00000-of-00001.parquet": "74a41822ce7d3def56e1682f958469c04642a5336a5ce912fa375fdb90fb25d7"
+  }
+}

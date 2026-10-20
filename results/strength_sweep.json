@@ -1,0 +1,95 @@
+{
+  "description": "The same checkpoint and the same 1,490 questions at eight inference strengths a. Without the transform, 1,226 questions are answered correctly.",
+  "model": {
+    "id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "dtype": "bfloat16"
+  },
+  "checkpoint": {
+    "file": "fixed_fp64.pt",
+    "sha256": "fa679cf28efd672c8db42330c479a4001b36c56e1003a13a26c9fb77eb7943ec"
+  },
+  "clean_correct": 1226,
+  "points": [
+    {
+      "alpha": 0.0,
+      "breaks_right_to_wrong": 0,
+      "repairs_wrong_to_right": 0,
+      "correct_with_transform": 1226,
+      "tokens_hidden_pct": {
+        "macro": 0.0,
+        "pooled": 0.0
+      }
+    },
+    {
+      "alpha": 0.5,
+      "breaks_right_to_wrong": 33,
+      "repairs_wrong_to_right": 16,
+      "correct_with_transform": 1209,
+      "tokens_hidden_pct": {
+        "macro": 0.0,
+        "pooled": 0.0
+      }
+    },
+    {
+      "alpha": 0.75,
+      "breaks_right_to_wrong": 40,
+      "repairs_wrong_to_right": 41,
+      "correct_with_transform": 1227,
+      "tokens_hidden_pct": {
+        "macro": 0.8274907268242896,
+        "pooled": 0.6682504552993982
+      }
+    },
+    {
+      "alpha": 0.8,
+      "breaks_right_to_wrong": 48,
+      "repairs_wrong_to_right": 37,
+      "correct_with_transform": 1215,
+      "tokens_hidden_pct": {
+        "macro": 1.0677361574935123,
+        "pooled": 0.7906196373856972
+      }
+    },
+    {
+      "alpha": 0.85,
+      "breaks_right_to_wrong": 50,
+      "repairs_wrong_to_right": 37,
+      "correct_with_transform": 1213,
+      "tokens_hidden_pct": {
+        "macro": 5.8926189854863384,
+        "pooled": 3.9397140576377967
+      }
+    },
+    {
+      "alpha": 0.9,
+      "breaks_right_to_wrong": 60,
+      "repairs_wrong_to_right": 43,
+      "correct_with_transform": 1209,
+      "tokens_hidden_pct": {
+        "macro": 14.996979863759282,
+        "pooled": 10.949173769018609
+      }
+    },
+    {
+      "alpha": 0.95,
+      "breaks_right_to_wrong": 63,
+      "repairs_wrong_to_right": 46,
+      "correct_with_transform": 1209,
+      "tokens_hidden_pct": {
+        "macro": 24.398949751417263,
+        "pooled": 19.349148912778496
+      }
+    },
+    {
+      "alpha": 1.0,
+      "breaks_right_to_wrong": 68,
+      "repairs_wrong_to_right": 45,
+      "correct_with_transform": 1203,
+      "tokens_hidden_pct": {
+        "macro": 30.082773658971764,
+        "pooled": 24.849070042016606
+      }
+    }
+  ]
+}

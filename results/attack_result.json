@@ -1,0 +1,38 @@
+{
+  "description": "Chosen-input subspace attack on the main checkpoint (a = 1, noise off). The attacker runs the same transform on its own prompts, estimates the displacement subspace from the observed Z - E, projects intercepted vectors onto its orthogonal complement and decodes by nearest neighbour in the public embedding table. Measured on the FP32 transform outputs, before the bf16 conversion for delivery.",
+  "model": {
+    "id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "dtype": "bfloat16"
+  },
+  "checkpoint": {
+    "file": "fixed_fp64.pt",
+    "sha256": "fa679cf28efd672c8db42330c479a4001b36c56e1003a13a26c9fb77eb7943ec"
+  },
+  "attacker_prompts": 200,
+  "victim_prompts": 96,
+  "victim_set": "held-out Alpaca prompts (the anchor set)",
+  "rank": 64,
+  "rows": [
+    {
+      "attack": "untransformed_embeddings_nearest_neighbour",
+      "content_tokens_recovered": 2794,
+      "content_tokens_total": 2794,
+      "recovery_pct": 100.0
+    },
+    {
+      "attack": "transformed_embeddings_nearest_neighbour",
+      "content_tokens_recovered": 1229,
+      "content_tokens_total": 2794,
+      "recovery_pct": 43.987115246957764
+    },
+    {
+      "attack": "chosen_input_rank_64",
+      "content_tokens_recovered": 2794,
+      "content_tokens_total": 2794,
+      "recovery_pct": 100.0
+    }
+  ],
+  "displacement_energy_captured_at_rank_64": 0.9995211362838745,
+  "note": "Without the attack, nearest-neighbour decoding recovers 1,229 of 2,794 content tokens (56.0% hidden, pooled over tokens). The paper quotes the macro rate on the same set (mean over prompts), 59.7%."
+}
